@@ -523,11 +523,11 @@ jobs:
     container:
       image: amd64/rust
     steps:
-      - uses: actions/checkout/restore@v4
+      - uses: actions/checkout@v4
         with:
           submodules: true
       - name: Cache Cargo
-        uses: actions/cache@v3
+        uses: actions/cache/restore@v3
         with:
           path: |
             ~/.cargo
