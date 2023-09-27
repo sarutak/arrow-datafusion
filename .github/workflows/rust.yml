@@ -215,12 +215,12 @@ jobs:
       image: amd64/rust
     steps:
       - uses: actions/checkout@v4
-      - name: Cache Cargo
-        uses: actions/cache@v3
-        with:
-          path: ~.cargo
-          # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+#      - name: Cache Cargo
+#        uses: actions/cache@v3
+#        with:
+#          path: ~.cargo
+#          # this key equals the ones on `linux-build-lib` for re-use
+#          key: cargo-cache-
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
@@ -351,13 +351,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Cache Cargo
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cargo
-            ./target
-          key: cargo-cache-mac-${{ hashFiles('datafusion/**/Cargo.toml') }}
+#      - name: Cache Cargo
+#        uses: actions/cache@v3
+#        with:
+#          path: |
+#            ~/.cargo
+#            ./target
+#          key: cargo-cache-mac-${{ hashFiles('datafusion/**/Cargo.toml') }}
       - name: Install protobuf compiler
         shell: bash
         run: |
@@ -526,14 +526,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Cache Cargo
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            ~/.cargo
-            ./target
-          # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-linux-${{ hashFiles('datafusion/**/Cargo.toml') }}
+#      - name: Cache Cargo
+#        uses: actions/cache@v3
+#        with:
+#          path: |
+#            ~/.cargo
+#            ./target
+#          # this key equals the ones on `linux-build-lib` for re-use
+#          key: cargo-cache-linux-${{ hashFiles('datafusion/**/Cargo.toml') }}
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
