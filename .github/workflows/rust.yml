@@ -47,13 +47,13 @@ jobs:
       image: amd64/rust
     steps:
       - uses: actions/checkout@v4
-      - name: Cache Cargo
-        uses: actions/cache@v3
-        with:
-          # these represent dependencies downloaded by cargo
-          # and thus do not depend on the OS, arch nor rust version.
-          path: /github/home/.cargo
-          key: cargo-cache-
+#      - name: Cache Cargo
+#        uses: actions/cache@v3
+#        with:
+#          # these represent dependencies downloaded by cargo
+#          # and thus do not depend on the OS, arch nor rust version.
+#          path: ~/.cargo
+#          key: cargo-cache-
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
@@ -87,9 +87,11 @@ jobs:
       - name: Cache Cargo
         uses: actions/cache@v3
         with:
-          path: /github/home/.cargo
+          path: |
+            ~/.cargo
+            ./target
           # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+          key: cargo-cache-linux-${{ hashFiles('datafusion/**/Cargo.toml') }}
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
@@ -112,7 +114,9 @@ jobs:
       - name: Cache Cargo
         uses: actions/cache@v3
         with:
-          path: /github/home/.cargo
+          path: |
+            ~/.cargo
+            ./datafusion-cli/target
           # this key equals the ones on `linux-build-lib` for re-use
           key: cargo-cache-cli-${{ hashFiles('datafusion-cli/Cargo.lock') }}
       - name: Setup Rust toolchain
@@ -214,7 +218,7 @@ jobs:
       - name: Cache Cargo
         uses: actions/cache@v3
         with:
-          path: /github/home/.cargo
+          path: ~.cargo
           # this key equals the ones on `linux-build-lib` for re-use
           key: cargo-cache-
       - name: Setup Rust toolchain
@@ -241,9 +245,11 @@ jobs:
       - name: Cache Cargo
         uses: actions/cache@v3
         with:
-          path: /github/home/.cargo
+          path: |
+            ~/.cargo
+            ./target
           # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+          key: cargo-cache-benchmark-${{ hashFiles('datafusion/**/Cargo.toml') }}
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
@@ -302,6 +308,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
+      - name: Cache Cargo
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo
+            ./target
+          key: cargo-cache-win64-${{ hashFiles('datafusion/**/Cargo.toml') }}
       - name: Install protobuf compiler
         shell: bash
         run: |
@@ -338,6 +351,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
+      - name: Cache Cargo
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo
+            ./target
+          key: cargo-cache-mac-${{ hashFiles('datafusion/**/Cargo.toml') }}
       - name: Install protobuf compiler
         shell: bash
         run: |
@@ -377,12 +397,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Cache Cargo
-        uses: actions/cache@v3
-        with:
-          path: /github/home/.cargo
-          # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+#      - name: Cache Cargo
+#        uses: actions/cache@v3
+#        with:
+#          path: /github/home/.cargo
+#          # this key equals the ones on `linux-build-lib` for re-use
+#          key: cargo-cache-
       - uses: actions/setup-python@v4
         with:
           python-version: "3.8"
@@ -480,12 +500,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Cache Cargo
-        uses: actions/cache@v3
-        with:
-          path: /github/home/.cargo
-          # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+#      - name: Cache Cargo
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.cargo
+#          # this key equals the ones on `linux-build-lib` for re-use
+#          key: cargo-cache-
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
@@ -503,15 +523,17 @@ jobs:
     container:
       image: amd64/rust
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout/restore@v4
         with:
           submodules: true
       - name: Cache Cargo
         uses: actions/cache@v3
         with:
-          path: /github/home/.cargo
+          path: |
+            ~/.cargo
+            ./target
           # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+          key: cargo-cache-linux-${{ hashFiles('datafusion/**/Cargo.toml') }}
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
@@ -531,12 +553,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Cache Cargo
-        uses: actions/cache@v3
-        with:
-          path: /github/home/.cargo
-          # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+#      - name: Cache Cargo
+#        uses: actions/cache@v3
+#        with:
+#          path: /github/home/.cargo
+#          # this key equals the ones on `linux-build-lib` for re-use
+#          key: cargo-cache-
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
@@ -563,12 +585,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Cache Cargo
-        uses: actions/cache@v3
-        with:
-          path: /github/home/.cargo
-          # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+#      - name: Cache Cargo
+#        uses: actions/cache@v3
+#        with:
+#          path: /github/home/.cargo
+#          # this key equals the ones on `linux-build-lib` for re-use
+#          key: cargo-cache-
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
