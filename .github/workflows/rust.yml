@@ -114,7 +114,7 @@ jobs:
         with:
           path: /github/home/.cargo
           # this key equals the ones on `linux-build-lib` for re-use
-          key: cargo-cache-
+          key: cargo-cache-cli-${{ hashFiles('datafusion-cli/Cargo.lock') }}
       - name: Setup Rust toolchain
         uses: ./.github/actions/setup-builder
         with:
