@@ -254,6 +254,8 @@ jobs:
           export TPCH_DATA=`realpath datafusion/sqllogictest/test_files/tpch/data`
           cargo test serde_q --profile release-nonlto --features=ci -- --test-threads=1
           INCLUDE_TPCH=true cargo test --test sqllogictests
+        env:
+          RUSTFLAGS: "-C debuginfo=0"
       - name: Verify Working Directory Clean
         run: git diff --exit-code
 
